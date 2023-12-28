@@ -1,0 +1,149 @@
+.container{
+    width: 70%;
+    height: fit-content;
+    /* background-color: rgb(206, 203, 203); */
+}
+
+.addressContainer{
+    padding: 10px 20px;
+    height: 70px;
+    display: flex;
+    /* background-color: rgb(250, 61, 99); */
+    background-color: salmon;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.addressContainer .left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.table{
+    width: 100%;
+    padding: 0;
+    /* background-color: blueviolet; */
+}
+
+.CartItem{
+    height: 180px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    border-left: 1px solid #dddcdc;
+    border-right: 1px solid #dddcdc;
+    border-top: 1px solid #dddcdc;
+}
+
+.imgBx{
+    height: 100%;
+    width: 150px;
+    object-fit: contain;
+}
+
+.imgBx img{
+    height: 100%;
+    width: 100%;
+}
+
+.details{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.outOfStock{
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+}
+
+.details p{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.sellerName{
+    color: grey;
+    font-size: 18px;
+}
+
+.productName{
+    color: black;
+    font-weight: 800;
+}
+
+.subtotal{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.btnContainer{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    /* margin: 0px 0px 8px 0px; */
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 590px;
+    border-left: 1px solid #dddcdc;
+    border-right: 1px solid #dddcdc;
+}
+
+.btnContainer:last-child{
+    border-bottom: 1px solid #dddcdc;
+}
+
+.cartPlusMinus{
+    height: 30px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+}
+
+.cartPlusMinus span{
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 30px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.cartQuantBtn{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    background-color: wheat;
+}
+
+.commonBtn{
+    padding: 7px 10px ;
+    font-size: 14px;
+    font-weight: 800;
+    background-color: transparent;
+    border: 1px solid grey;
+    color: dodgerblue;
+    border-radius: 5px;
+}
+
+.right button{
+    color: crimson;
+    background-color: rgba(255,255,255,.8);
+}

@@ -1,0 +1,40 @@
+.imageCell {
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  transition: 0.2s ease-in-out;
+}
+
+.imageCell:hover {
+  scale: 1.5;
+}
+
+.imageCellUpload {
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.table {
+  width: 100%;
+}
+
+.dispatchBtn{
+  display: flex;
+  flex-direction: column;
+}
+
+.dispatchBtn select{
+  width: 100px;
+  padding: 7px;
+  margin-bottom: 5px;
+  background-color: tomato;
+  color: white;
+  border: 1px solid grey;
+}

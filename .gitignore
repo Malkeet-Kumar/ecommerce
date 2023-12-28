@@ -1,0 +1,5 @@
+backend/node_modules
+backend/.env
+backend/public
+ecom(1).sql
+example.html

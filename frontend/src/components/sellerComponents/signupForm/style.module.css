@@ -1,0 +1,111 @@
+.container{
+    width: 30%;
+    margin-top: 50px;
+    height: 380px;
+    background-color: white;
+    box-shadow: 0px 0px 4px grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-size: 19px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status> label{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.step{
+    height: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.step>input{
+    width: 90%;
+    height: 35px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.step input{
+    outline: none;
+}
+
+.fileInput{
+    width: 90%;
+    padding: 0px 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fileInput input{
+    border: 1px solid grey;
+    width: 70%;
+    padding: 5px 10px;
+}
+
+.fileInput label{
+    width: 30%;
+}
+
+.controls{
+    height: 50px;
+    align-self: center;
+    width: 50%;
+    justify-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+}
+
+.footer{
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.footer>h4{
+    margin-top: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.footer>p{
+    padding: 0px;
+}
+
+.prevBtn, .nextBtn{
+    margin: 0px 10px 0px 0px;
+    border: 2px solid dodgerblue;
+    padding: 8px 18px;
+    font-size: 14px;
+    color: dodgerblue;
+    background-color: white;
+    border-radius: 0px;
+    font-weight: 700;
+}
+
+.nextBtn{
+    background-color: dodgerblue;
+    color: white;
+}

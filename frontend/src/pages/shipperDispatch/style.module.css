@@ -1,0 +1,43 @@
+.actionsSpace{
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+    align-items: center;
+}
+
+.actionsSpace>div{
+    display: flex;
+    flex-direction: column;
+}
+
+.selectMenu1, .selectMenu2{
+    padding: 8px;
+    width: 122px;
+    margin-bottom: 10px;
+    background-color: rgb(41, 53, 41);
+    color: white;
+    border: 1px solid grey;
+    margin-left: 30px;
+}
+
+.selectMenu2{
+    margin-left: 0px;
+    background-color: gray;
+}
+
+.dispatch{
+    width: 122px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.assign{
+    width: 122px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

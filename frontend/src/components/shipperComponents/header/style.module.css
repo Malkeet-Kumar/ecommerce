@@ -1,0 +1,48 @@
+.header{
+    height: 100px;
+    background-color: tomato;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerHeader{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.innerHeader h2,.innerHeader p{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.innerHeader p{
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.innerHeader h2{
+    font-size: 28px;
+}
+
+.lower {
+    width: 90%;
+}
+
+.lower a{
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+}
+
+.lower a:hover{
+    background-color: orangered;
+}

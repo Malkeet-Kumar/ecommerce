@@ -1,0 +1,23 @@
+.container{
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.container input{
+    border: none;
+    width: 80%;
+    padding: 0;
+}
+.container input:focus{
+    outline: none;
+}
+
+.icon{
+    width: 15%;
+}

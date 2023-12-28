@@ -1,0 +1,107 @@
+.container{
+    /* margin-top: 100px; */
+    width: 100%;
+    display: flex;
+}
+
+.leftContainer{
+    height: 100%;
+    width: 97%;
+}
+
+.rightContainer{
+    position: fixed;
+    top: 20%;
+    right: 0;
+    height: 90%;
+    width: 30%;
+    border-radius: 10px 0px 0px 0px;
+    border: 1px solid #F1F3F6;
+    background-color: white;
+    box-shadow: -2px -2px 4px #d0d0d1;
+    padding: 20px 5px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sideActionbar{
+    position: fixed;
+    top: 20%;
+    right: 0;
+    height: 80%;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.closeBtn{
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    background-color: black;
+    font-weight: 700;
+}
+.rightInputs{
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    /* padding: 0px 10px; */
+}
+
+.rightInnerDiv{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7px;
+    width: 100%;
+}
+
+.rightInnerDiv>input{
+    padding: 8px 10px;
+    border: 1px solid rgb(120, 187, 253);
+    background-color: white;
+    border-radius: 5px;
+}
+
+.rightInnerDiv>textarea{
+    border: 1px solid rgb(120, 187, 253);
+    border-radius: 5px;
+    padding: 4px 10px;
+}
+
+.imageLabel{
+    padding: 7px 10px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid rgb(120, 187, 253);
+    border-radius: 5px;
+    /* color: dodgerblue; */
+    color: grey;
+}
+
+.rightContainer>h3{
+    color: rgb(6, 130, 253);
+    margin: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.addProduct{
+    padding: 10px;
+    border: 1px solid crimson;
+    border-radius: 5px;
+    color: crimson;
+    background-color: white;
+}
+
+.addProduct:hover{
+    box-shadow: 0px 0px 4px rgb(224, 50, 85);
+}

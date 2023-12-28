@@ -1,0 +1,70 @@
+.header{
+    height: 100px;
+    width: 100%;
+    background-color: crimson;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    z-index: 10;
+    top: 0;
+}
+
+.upper{
+    height: 70%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.upperInner{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upperInner h3{
+    font-size: 27px;
+    color: white;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+}
+
+.profileIcon{
+    color: white;
+    margin-left: 8px;
+}
+
+.lower{
+    height: 30%;
+    width: 80%;
+}
+
+.lowerInner{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lowerInner a{
+    margin-right: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 19px;
+    border: 3px solid transparent;
+    padding: 7px 10px;
+    border-image-slice: 1;
+}
+
+.lowerInner a:hover{
+    border-image-source: linear-gradient(to right,red, purple);
+}
