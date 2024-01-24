@@ -7,6 +7,7 @@ import { productUrl, sellerInventory } from "../../../apis/apiUrls"
 import style from './style.module.css'
 import { useForm } from "antd/es/form/Form"
 import { CSVLink } from 'react-csv'
+import ImageCell from "../../imageCell";
 
 export default function MyDataTable({isUnauth,isError, err, isLoading, data, setData}) {
     const [formatdata, setFormatData] = useState([["Name", "Category", "Price", "Description", "Stock"]])
@@ -20,8 +21,8 @@ export default function MyDataTable({isUnauth,isError, err, isLoading, data, set
         return record.p_id == editRowId
     }
 
-    const deleteProduct = async (p_id) => {
-        const res =  await fetch(sellerInventory+"?pid="+p_id,{method:"DELETE",headers:{
+    const deleteProduct = async (p_id,del) => {
+        const res =  await fetch(sellerInventory+"?pid="+p_id+"&delete="+del,{method:"DELETE",headers:{
             authorization:localStorage.getItem("token")
         }})
         if(res.ok){
@@ -125,7 +126,7 @@ export default function MyDataTable({isUnauth,isError, err, isLoading, data, set
             dataIndex: "image",
             render: (url, record) => (
                 (url) ?
-                    <img className={style.imageCell} alt={url} src={(url.includes("http"))?url:"http://127.0.0.1:8000/uploads/productImages/"+url} key={record.p_id} />
+                    <ImageCell src={url} alt={record.name}/>
                     :
                     <UploadImage pid={record.p_id} />
             )
@@ -169,30 +170,30 @@ export default function MyDataTable({isUnauth,isError, err, isLoading, data, set
             title: "Approved Status",
             dataIndex: "isApproved",
             align: "center",
-            render: (_, record) => (record.isApproved) ? "Approved" : "Approval Pending",
+            render: (val) => (val==0) ? "Approval Pending": (val==1)?"Approved":"Rejected",
             sorter: (a, b) => a.isApproved > b.isApproved
         },
         {
             title: "Actions",
-            dataIndex: "",
-            render: (_, record) => {
+            dataIndex: "p_id",
+            render: (id, record) => {
                 const isEditable = isEditing(record)
                 return (
                     data.length >= 1 ?
                         <Space>
-                            <Popconfirm title="Sure to delete ?" onConfirm={() => { deleteProduct(record.p_id) }} disabled={isEditable}>
+                            <Popconfirm title="Sure to delete ?" onConfirm={() => { (record.isApproved==0)?deleteProduct(id,true):deleteProduct(id,false) }} disabled={isEditable}>
                                 <Button danger type="primary">Delete</Button>
                             </Popconfirm>
                             {(isEditable)
                                 ?
                                 <Space>
-                                    <Button type="primary" onClick={e => saveChanges(record.p_id)}>Save</Button>
+                                    <Button type="primary" onClick={e => saveChanges(id)}>Save</Button>
                                     <Popconfirm title="Sure to Cancel ?" onConfirm={cancelEditing}>
                                         <Button>Cancel</Button>
                                     </Popconfirm>
                                 </Space>
                                 :
-                                <Button type="primary" onClick={e => setEditRowId(record.p_id)}>Edit</Button>
+                                <Button type="primary" onClick={e => setEditRowId(id)}>Edit</Button>
                             }
                         </Space>
                         : null

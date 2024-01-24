@@ -7,7 +7,7 @@ import LoginForm from "../../components/userComponents/loginForm";
 import Alert from "../../components/sweetAlert";
 import SignupSeller from '../../components/sellerComponents/signupForm'
 import { helix } from 'ldrs'
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 helix.register("my-loader")
 
 
@@ -187,6 +187,10 @@ export default function Login() {
     return (
         <div className={style.container}>
             {
+            (seller.isLoggedIn)
+            ?
+            <Navigate to="/seller/home"/>
+            :
             (isLogin)
             ?
             <LoginForm props={loginProps} />

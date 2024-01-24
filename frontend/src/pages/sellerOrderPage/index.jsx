@@ -4,12 +4,17 @@ import {useEffect, useState} from 'react'
 import OrderTable from '../../components/sellerComponents/orderItem'
 import style from './style.module.css'
 import { message } from 'antd'
+import useConfig from 'antd/es/config-provider/hooks/useConfig'
+import { useContext } from 'react'
+import SellerContext from '../../context/sellerContext'
 export default function SellerOrderPage(){
     const [orders,setOrders] = useState([])
     const [centers,setCenters] = useState([])
     const [isError,setIsError] = useState(false)
     const [err,setErr] = useState("")
     const [loading,setLoading] = useState(false)
+
+    const {seller} = useContext(SellerContext)
 
     const getData = async()=>{
         try {
@@ -34,12 +39,13 @@ export default function SellerOrderPage(){
     }}
 
     useEffect(()=>{
-        getData()
+        (seller.isLoggedIn)?
+        getData():null
     },[])
 
     return(
         <div className={style.container}>
-            <OrderTable data={orders} setData={setOrders} centers = {centers}/>
+            {seller.isLoggedIn?<OrderTable data={orders} setData={setOrders} centers = {centers}/>:<h1>Please login to see orders</h1>}
         </div>
     )
 }

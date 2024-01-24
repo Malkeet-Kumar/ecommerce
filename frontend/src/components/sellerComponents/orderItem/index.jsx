@@ -7,6 +7,8 @@ import { productUrl, sellerDispatchCenter, sellerInventory, sellerOrders } from 
 import style from './style.module.css'
 import { useForm } from "antd/es/form/Form"
 import { CSVLink } from 'react-csv'
+import ImageCell from "../../imageCell";
+import Alert from '../../sweetAlert'
 
 export default function OrderTable({ isUnauth, isError, err, isLoading, data, setData, centers }) {
     const [formatdata, setFormatData] = useState([["Name", "Category", "Price", "Description", "Stock"]])
@@ -14,17 +16,17 @@ export default function OrderTable({ isUnauth, isError, err, isLoading, data, se
     const [searchText, setSearchText] = useState("")
     const [warehouses, setWarehouses] = useState([])
 
-    const [choosenCenter,setChoosenCenter] = useState("")
+    const [choosenCenter,setChoosenCenter] = useState(warehouses[0])
 
     async function acceptorder(oid) {
         try {
-            const res = await fetch(sellerOrders + "?oid=" + oid, { credentials: "include", method: "POST" })
+            const res = await fetch(sellerOrders + "?oid=" + oid, { method: "POST", headers:{authorization:localStorage.getItem("token")} })
             if (res.status == 200) {
-                message.success("Order Accepted start packaging")
                 const indx = data.findIndex(i => i.o_id == oid)
                 data[indx].statusCode = 1
                 console.log(data[indx]);
                 setData([...data])
+                message.success("Order Accepted start packaging")
             }
             if (res.status == 304) {
                 message.warning("Something went wrong !")
@@ -33,13 +35,40 @@ export default function OrderTable({ isUnauth, isError, err, isLoading, data, se
                 message.error("Unauthorised")
             }
         } catch (error) {
-            message.error(error)
+            Alert({
+                title:"Error Occured",
+                text:error,
+                icon:"error",
+                iconColor:"red"
+            })
         }
     }
 
     async function dispatchOrder(oid) {
-        message.success(oid+" "+choosenCenter)
-        const res = await fetch(sellerOrders + "?oid=" + oid+"&center_id="+choosenCenter, { method: "PATCH", credentials: "include" })
+        if(!choosenCenter){
+            message.warning("Please choose a center to dispatch")
+            return
+            // setChoosenCenter(warehouses[0])
+        }
+        try {
+            const res = await fetch(sellerOrders + "?oid=" + oid+"&center_id="+choosenCenter || warehouses[0], { method: "PATCH", headers:{authorization:localStorage.getItem("token")} })
+            // console.log(res);
+            if(res.ok){
+                const newData = data.filter(i=>i.o_id!=oid)
+                setData(newData)
+                message.success("Order Dispatched")
+            } else {
+                message.error("Something went wrong")
+            }
+        } catch (error) {
+            console.log(error);
+            Alert({
+                title:"Error Occured",
+                text:error,
+                icon:"error",
+                iconColor:"red"
+            })
+        }
     }
 
     const columns = [
@@ -47,7 +76,7 @@ export default function OrderTable({ isUnauth, isError, err, isLoading, data, se
             title: "Image",
             dataIndex: "image",
             render: (url, record) => (
-                <img className={style.imageCell} alt={url} src={(url.includes("http")) ? url : "http://127.0.0.1:8000/uploads/productImages/" + url} key={record.p_id} />
+                <ImageCell src={url} alt={record.name}/>
             )
         },
         {
@@ -77,24 +106,26 @@ export default function OrderTable({ isUnauth, isError, err, isLoading, data, se
             title: "Bill Amount",
             dataIndex: "billAmount",
             align: "center",
-            sorter: (a, b) => a.price > b.price
+            sorter: (a, b) => a.billAmount > b.billAmount
         },
         {
             title: "Payment Method",
             dataIndex: "payment_method",
-            align: "center"
+            align: "center",
         },
         {
             title: "Payment Status",
             dataIndex: "payment_status",
             align: "center",
-            render: (val) => (val == 0) ? "Pending" : "Paid"
+            render: (val) => (val == 0) ? "Pending" : "Paid",
+            sorter:(a,b)=> a.payment_status > b.payment_status
         },
         {
             title: "Status",
             dataIndex: "statusCode",
             align: "center",
-            render: (val) => (val == 0) ? "Not Confirmed" :(val==1)? "Accepted" : "Dispatched"
+            render: (val) => (val == 0) ? "Not Confirmed" :(val==1)? "Accepted" : "Dispatched",
+            sorter:(a,b)=>a.statusCode>b.statusCode
         },
         {
             title: "Placed Date",

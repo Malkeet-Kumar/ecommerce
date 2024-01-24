@@ -13,9 +13,10 @@ import UserContext from '../../../context/userContext';
 import Alert from '../../sweetAlert';
 import CartContext from '../../../context/CartContext';
 import { defaultUser } from '../../../utils/defaultStateVariables';
+import { message } from 'antd';
 
 export default function Header() {
-  const { user, setUser, setCartTotal, setCartItems  } = useContext(UserContext)
+  const { user, setUser, setCartTotal, setCartItems, setUserAddresses } = useContext(UserContext)
   const [header, setHeader] = useState(style.header)
 
   const listenScrollEvent = (event) => {
@@ -32,25 +33,13 @@ export default function Header() {
   }, []);
 
   const logout = () => {
-    console.log("Logout");
-    fetch(logoutUrl, {
-      method: "get",
-      credentials: "include"
-    })
-      .then((result) => {
-        setUser(defaultUser)
-        setCartItems(0)
-        setCartTotal(0)
-        // set
-        return <Navigate to="/login" />
-      }).catch((err) => {
-        Alert({
-          title: "Somthing went wrong",
-          text: err,
-          icon: "error",
-          iconColor: "red"
-        })
-      });
+    localStorage.removeItem("token")    
+    localStorage.removeItem("user")
+    setUser(defaultUser.user)
+    setCartItems(0)
+    setCartTotal(0)
+    setUserAddresses([])
+    message.success("Logged out")
   }
 
   return (

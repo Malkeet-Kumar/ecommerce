@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Table, message, Space, Button, Popconfirm } from 'antd'
 import style from './style.module.css'
 import { shipperDispatched } from '../../apis/apiUrls'
+import ShipperConext from '../../context/shipperContext'
 
 export default function DispatchPage() {
+    const {user} = useContext(ShipperConext)
     const [data, setData] = useState([])
     const [deliverers, setDeliverers] = useState([])
     const [centers, setCenters] = useState([])
@@ -16,7 +18,7 @@ export default function DispatchPage() {
     const assignForDelivery = async (oid) => {
         const dp = deliverers.filter(i=>i.did==delp_id)
         console.log(dp);
-        const res = await fetch(shipperDispatched + "?oid=" + oid+"&did="+delp_id+"&city="+dp[0].city, { method: "PATCH", credentials: 'include' })
+        const res = await fetch(shipperDispatched + "?oid=" + oid+"&did="+delp_id+"&city="+dp[0].city, { method: "PATCH", headers:{authorization:localStorage.getItem("token")} })
         if (res.ok) {
             message.success("Sent for Delivery")
             const newData = data.filter(i => i.oid != oid)
@@ -29,7 +31,7 @@ export default function DispatchPage() {
     const dispathNext = async(oid)=>{
         const dis = centers.filter(i=>i.sid == nextDispatcherId)
         console.log(dis);
-        const res = await fetch(shipperDispatched+"?oid="+oid+"&did="+dis[0].sid+"&city="+dis[0].city,{method:"POST",credentials:'include'})
+        const res = await fetch(shipperDispatched+"?oid="+oid+"&did="+dis[0].sid+"&city="+dis[0].city,{method:"POST",headers:{authorization:localStorage.getItem("token")}})
         if(res.ok){
             message.success("Dispatched to next successfully")
             const newData = data.filter(i=>i.oid!=oid)
@@ -44,7 +46,7 @@ export default function DispatchPage() {
             setLoading(p => !p)
             setIsErr(p => !p)
             setErr("")
-            const res = await fetch(shipperDispatched, { method: "GET", credentials: 'include' })
+            const res = await fetch(shipperDispatched, { method: "GET", headers:{authorization:localStorage.getItem("token")} })
             const d = await res.json()
             setData(d.data)
             setDeliverers(d.deliverypersons)
@@ -134,14 +136,14 @@ export default function DispatchPage() {
 
     return (
         <Space>
-            <Table
+            {(user.isShipper && user.isLoggedIn)?<Table
                 style={{ width: "100vw" }}
                 className={style.table}
                 columns={columns}
                 dataSource={data}
                 bordered
                 loading={loading}
-            />
+            />:<h1>Unauthorised Access</h1>}
         </Space>
     )
 }

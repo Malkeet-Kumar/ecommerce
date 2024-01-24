@@ -143,7 +143,7 @@ export default function Cart() {
     return (
        <CartContainer>
             {
-                (!user.isUser)
+                (!user.isUser || !user.isLoggedIn)
                 ?
                 <h1>Please log in to see your cart</h1>
                 :

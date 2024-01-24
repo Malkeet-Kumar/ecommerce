@@ -1,0 +1,74 @@
+.openCloseBtn{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 200px;
+    z-index: 10;
+}
+
+.container{
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.form{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    padding: 25px;
+    background-color: white;
+    box-shadow: 0px 0px 4px grey;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form>h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.upper{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+.upper label{
+    padding: 7px 10px;
+} 
+.upper input{
+    padding: 7px 10px;
+    border: 1px solid grey;
+}
+
+.btns{
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+}
+
+.resetPass{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.resetPass input{
+    margin-top: 3px;
+    padding: 5px;
+    border: 1px solid grey;
+}
+

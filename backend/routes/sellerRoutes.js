@@ -1,6 +1,5 @@
 const {
     sellerLogin,
-    sellerLogout,
     sellerSignUp,
     getSellerProducts,
     addProduct,
@@ -17,7 +16,6 @@ const auth = async(req, res, next) => {
     if (req.headers.authorization) {
         try {
             const token = await jwt.verify(req.headers.authorization,process.env.JWTKEY)
-            console.log(token);
             if(token?.seller?.isSeller)
                 next()
         } catch (error) {
@@ -34,8 +32,6 @@ sellerRoutes.post("/login", sellerLogin)
 
 sellerRoutes.post("/signup", sellerSignUp)
 
-sellerRoutes.get("/logout", sellerLogout)
-
 sellerRoutes.use("/inventory", auth)
 sellerRoutes.route("/inventory")
     .get(getSellerProducts)
@@ -50,7 +46,9 @@ sellerRoutes.route("/orders")
     .post(acceptOrder)
     .patch(dispatchOrder)
 
-sellerRoutes.get("/reports",getReport)
+sellerRoutes.use("/reports",auth)
+sellerRoutes.route("/reports")
+.get(getReport)
 
 
 module.exports = sellerRoutes

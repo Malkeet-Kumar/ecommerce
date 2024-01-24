@@ -5,13 +5,18 @@ import { useGetData } from '../../apis/apiCalls'
 import { message } from 'antd'
 import { LoadingOutlined, UploadOutlined } from '@ant-design/icons'
 import { sellerInventory } from '../../apis/apiUrls'
+import { useContext } from 'react'
+import SellerContext from '../../context/sellerContext'
 
 export default function InventoryContainer(props) {
-    const [isUnauth,isError, err, isLoading, data, setData] = useGetData(sellerInventory,localStorage.getItem("token"))
+    const [isUnauth, isError, err, isLoading, data, setData] = useGetData(sellerInventory, localStorage.getItem("token"))
 
     const [isFormVisible, setFormVisibility] = useState(false)
     const [buttonText, setButtonText] = useState("<")
-    const setNewData = (data) =>{
+
+    const {seller} = useContext(SellerContext)
+
+    const setNewData = (data) => {
         setData()
         console.log("object");
     }
@@ -46,7 +51,7 @@ export default function InventoryContainer(props) {
                 formData.append(keyArr[i], val);
             })
 
-            const resetForm = ()=>{
+            const resetForm = () => {
                 setPname("")
                 setPcat("")
                 setPrice("")
@@ -59,8 +64,8 @@ export default function InventoryContainer(props) {
             try {
                 const res = await fetch(sellerInventory, {
                     method: "POST",
-                    headers:{
-                        authorization:localStorage.getItem("token")
+                    headers: {
+                        authorization: localStorage.getItem("token")
                     },
                     body: formData
                 })
@@ -108,13 +113,20 @@ export default function InventoryContainer(props) {
 
     return (
         <div className={style.container}>
-            <div className={style.leftContainer}>
-                <MyDataTable isUnauth={isUnauth} isError={isError} err={err} isLoading={isLoading} data={data} setData={setData}/>
-            </div>
-            {(isFormVisible) ? <AddItemForm/> : <></>}
-            <div className={style.sideActionbar}>
-                <button onClick={onBtnClicked} className={style.closeBtn}>{buttonText}</button>
-            </div>
+            {
+                seller.isLoggedIn ?
+                    <>
+                        <div className={style.leftContainer}>
+                            <MyDataTable isUnauth={isUnauth} isError={isError} err={err} isLoading={isLoading} data={data} setData={setData} />
+                        </div>
+                        {(isFormVisible) ? <AddItemForm /> : <></>}
+                        <div className={style.sideActionbar}>
+                            <button onClick={onBtnClicked} className={style.closeBtn}>{buttonText}</button>
+                        </div>
+                    </> :
+                    <h1>Please login first to see inventory</h1>
+
+            }
         </div>
     )
 }

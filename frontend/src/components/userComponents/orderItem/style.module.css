@@ -1,11 +1,35 @@
-.orderItem{
-    width: 100%;
-    padding: 20px;
+.orderItemContainer{
     background-color: white;
     border: 1px solid #dddcdc;
     margin: 10px 20px 10px 0px;
+}
+
+.orderItem, .reason{
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    margin: 0px 20px 10px 0px;
     display: flex;
     height: 170px;
+}
+
+.reason{
+    border-top: 1px solid #dddcdc;
+    height: 100px;
+    width: 70%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reasonInput{
+    height: 100%;
+    width: 85%;
+    padding: 10px;
+}
+
+.trackingStatus{
+    border-top: 1px solid #dddcdc;
+    padding: 20px;
 }
 
 .c1{

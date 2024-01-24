@@ -1,0 +1,52 @@
+.headerContainer{
+    height: 120px;
+    width: 100%;
+    background-color: crimson;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 2px 0px 5px grey;
+}
+
+.upper{
+    width: 85%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    color: white;
+}
+
+.upper p{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.lower{
+    margin-top: 25px;
+    height: 45px;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lower a, .logoutBtn{
+    text-decoration: none;
+    color: white;
+    font-size: 19px;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+}
+
+.lower a:hover, .logoutBtn:hover{
+    border-color: white;
+    cursor: pointer;
+    user-select: none;
+}

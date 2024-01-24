@@ -1,16 +1,18 @@
 import { Table, message, Space,Popconfirm, Button } from "antd"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import style from './style.module.css'
 import { delivery, shipperOnboard } from "../../apis/apiUrls"
+import ShipperConext from "../../context/shipperContext"
 
 export default function OnBoarding() {
+    const {user} = useContext(ShipperConext)
     const [onboarding, setOnboarding] = useState([])
     const [loading, setLoading] = useState(false)
     const [isErr, setIsErr] = useState(false)
     const [err, setErr] = useState("")
 
     const packageReceived=async(oid)=>{
-        const res = await fetch(shipperOnboard+"?oid="+oid,{method:"POST",credentials:'include'})
+        const res = await fetch(shipperOnboard+"?oid="+oid,{method:"POST",headers:{authorization:localStorage.getItem("token")}})
         if(res.ok){
             message.success("Package Recieved Successfully")
             const newData = onboarding.filter(i=>i.oid!=oid)
@@ -25,7 +27,7 @@ export default function OnBoarding() {
             setLoading(p => !p)
             setIsErr(p => !p)
             setErr("")
-            const res = await fetch(delivery, { method: "GET", credentials: 'include' })
+            const res = await fetch(shipperOnboard, { method: "GET",headers:{authorization:localStorage.getItem("token")}})
             const data = await res.json()
             setOnboarding(data)
             setLoading(p => !p)
@@ -98,14 +100,14 @@ export default function OnBoarding() {
 
     return (
         <Space>
-            <Table
+            {(user.isShipper && user.isLoggedIn)?<Table
                 style={{width:"100vw"}}
                 className={style.table}
                 columns={columns}
                 dataSource={onboarding}
                 bordered
                 loading={loading}
-            />
+            />:<h1>Unauthorised Access</h1>}
         </Space>
     )
 }

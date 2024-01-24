@@ -10,7 +10,7 @@ import Alert from '../../components/sweetAlert'
 import style from './style.module.css'
 import { LuHeading1 } from 'react-icons/lu'
 
-export default function Products() {
+export default function Products(){
     const [currentPage,setCurrPage] = useState(1)
     const [currentItems,setCurrItems] = useState(10)
     const token = localStorage.getItem("token")
@@ -18,7 +18,6 @@ export default function Products() {
     useEffect(() => {
         document.title = SHOP_TITLE
     })
-
     const Child = () => {
         if (isError) {
             return <Error err={err} heading="Oops Somthing went wrong." />
@@ -29,12 +28,10 @@ export default function Products() {
             return data.map(product => <Product product={product} />)
         }
     }
-
     const setPage = (page,size)=>{
         setCurrItems(size)
         setCurrPage(page)
     }
-
     return (
         <ProductContainer currentPage={currentPage} total={count} setCurrPage={setPage}>
             <Child />

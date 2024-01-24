@@ -1,14 +1,3 @@
-.imageCell {
-  height: 100px;
-  width: 100px;
-  padding: 10px;
-  transition: 0.2s ease-in-out;
-}
-
-.imageCell:hover {
-  scale: 1.5;
-}
-
 .imageCellUpload {
   height: 100px;
   width: 100px;
@@ -21,9 +10,9 @@
   border-radius: 5px;
 }
 
-.table {
+/* .table {
   width: 100%;
-}
+} */
 
 .dispatchBtn{
   display: flex;

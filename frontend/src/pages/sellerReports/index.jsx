@@ -3,6 +3,8 @@ import style from './style.module.css'
 import { Chart } from 'react-google-charts'
 import { sellerReport } from '../../apis/apiUrls'
 import { LuIndianRupee } from 'react-icons/lu'
+import { useContext } from 'react'
+import SellerContext from '../../context/sellerContext'
 
 export default function SellerReport() {
     const [isUnauth, setUnauth] = useState(false)
@@ -14,6 +16,8 @@ export default function SellerReport() {
     const [orders,setOrders] = useState([])
     const [sales,setSales] = useState(0)
     const [soldUnits, setSoldUnits] = useState([0,""])
+
+    const {seller} = useContext(SellerContext)
 
     const getData = async()=>{
         try {
@@ -42,28 +46,28 @@ export default function SellerReport() {
         }
     }
 
-    const chartData = [...soldUnits.map(item => [item.name, item.sold])]
+    const chartData = [["name","quantity"],...soldUnits.map(item => [item.name, Number(item.sold)])]
+
     useEffect(()=>{
         getData()
     },[])
 
     return (
         <>
-        {
-            console.log(sales)
-        }
+            {seller.isLoggedIn?<>
+            
             <div className={style.container1}>
                 {products.map(t=>{
                     return <div className={style.card}>
-                    <h2>{t.isApproved?"Approved Products":"Approval Pending"}</h2>
+                    <h2>{(t.isApproved==0)?"Rejected Products":(t.isApproved==1)?"Approved Products":"Approval Pending"}</h2>
                     <h1>{t.count}</h1>
                 </div>
                 })}
                 {
                     orders.map(t=>{
-                        if(t.statusCode==1 || t.statusCode==4){
-                        return  <div className={style.card}>
-                                    <h2>{t.statusCode==1?"Orders Accepted":"Orders Delivered"}</h2>
+                        if(t.statusCode==0 || t.statusCode==4 || t.statusCode==5){
+                            return  <div className={style.card}>
+                                    <h2>{t.statusCode==0?"New Orders":(t.statusCode==4)?"Orders Delivered":"Orders Cancelled"}</h2>
                                     <h1>{t.count}</h1>
                                 </div>
                         } else {
@@ -81,6 +85,9 @@ export default function SellerReport() {
             <div className={style.container2}>
                 <Chart chartType="PieChart" width="100%" height="400px" data={chartData} />
             </div>
+            </>:
+            <h1>Please Login to see Reports</h1>
+            }
         </>
     )
 }

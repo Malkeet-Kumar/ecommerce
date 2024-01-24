@@ -1,0 +1,17 @@
+.imageBox{
+    height: 100px;
+    width: 100px;
+    padding: 5px;
+    margin-right: 50px;
+    object-fit: contain;
+}
+
+.imageBox img{
+    height: 100%;
+    width: 100%;
+    transition: .3s ease-in-out;
+}
+
+.imageBox img:hover{
+    scale: 1.3;
+}

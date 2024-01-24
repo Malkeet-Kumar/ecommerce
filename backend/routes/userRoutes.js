@@ -10,9 +10,9 @@ const {
     getCart,
     getUserOrders,
     placeOrder,
-    cancelOrder,
     trackOrder,
-    addUserAddress
+    addUserAddress,
+    cancelUserOrder
 } = require('../controllers/userControllers')
 const userRoutes = express()
 const jwt = require("jsonwebtoken")
@@ -49,7 +49,7 @@ userRoutes.use("/orders",auth)
 userRoutes.route('/orders')
 .get(getUserOrders)
 .post(placeOrder)
-.patch(cancelOrder)
+.delete(cancelUserOrder)
 
 userRoutes.use('/cart',auth)
 userRoutes.route('/cart')

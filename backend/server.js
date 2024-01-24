@@ -5,7 +5,6 @@ const cors = require('cors')
 const multer = require('multer')
 const db = require('./models/db')
 const app = express()
-// const { addProduct } = require('./utils/queries')
 app.use(express.static('public/'))
 
 app.use(cors({
@@ -53,6 +52,7 @@ const upload = multer({storage:storage});
 app.use(upload.any());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
 app.use((req, res, next) => {
     console.log("Method=> ", req.method);
     console.log("Path=> ", req.path);
@@ -62,6 +62,7 @@ app.use((req, res, next) => {
 })
 
 const productRoutes = require('./routes/productRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 const userRoutes = require('./routes/userRoutes')
 const sellerRoutes = require('./routes/sellerRoutes')
 const shipperRoutes = require("./routes/shipperRoutes")
@@ -72,6 +73,7 @@ app.use("/api/user", userRoutes)
 app.use("/api/seller",sellerRoutes);
 app.use("/api/shipper",shipperRoutes)
 app.use("/api/deliver",deliverRoutes)
+app.use("/api/admin",adminRoutes)
 
 db.connect((err) => {
     if (err) {

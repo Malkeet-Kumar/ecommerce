@@ -2,10 +2,17 @@ import ShipperLoginPage from "../pages/shipperLoginPage"
 import Home from "../containers/homeContainer"
 import OnBoarding from "../pages/shipperOnboard"
 import DispatchPage from "../pages/shipperDispatch"
+import Deliveries from "../pages/shipperDeliveris"
+import DeliverMgmt from "../pages/DelivererMgmt"
+
 const shipperRoutes = [
   {
-    path: "home",
-    element: <Home/>
+    path:"",
+    element:<ShipperLoginPage/>
+  },
+  {
+    path: "login",
+    element: <ShipperLoginPage/>
   },
   {
     path:"onboarding",
@@ -16,8 +23,12 @@ const shipperRoutes = [
     element:<DispatchPage/>
   },
   {
-    path:"login",
-    element:<ShipperLoginPage />
+    path:"deliveries",
+    element:<Deliveries/>
+  },
+  {
+    path:"deliverermgmt",
+    element:<DeliverMgmt/>
   }
 ]
 

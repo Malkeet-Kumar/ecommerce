@@ -1,0 +1,11 @@
+.actionsCell{
+    display: flex;
+}
+
+.actionsCell button{
+    margin: 5px;
+}
+
+.container{
+    padding: 5px;
+}

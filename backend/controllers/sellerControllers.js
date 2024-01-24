@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const { csvPreProcessor } = require('../utils/helpers')
-const { createOrUpdateSeller, saveSellerDocs, getSeller, getAllProductsForSeller, createProduct, addProductImage, deactivateProduct, updateProduct, getAllOrdersForSeller, acceptOrderOrDispatch, getWareHouseList, generateReport } = require('../utils/queries');
+const { createOrUpdateSeller, saveSellerDocs, getSeller, getAllProductsForSeller, createProduct, addProductImage, deactivateProduct, updateProduct, getAllOrdersForSeller, acceptOrderOrDispatch, getWareHouseList, generateReport, deleteProductReq } = require('../utils/queries');
 
 async function sellerLogin(req, res) {
     try {
@@ -16,7 +16,7 @@ async function sellerLogin(req, res) {
             return
         } else {
             try {
-                const authToken = jwt.sign({seller:{...seller[0],isSeller:true,isLoggedIn:true}},process.env.JWTKEY)
+                const authToken = jwt.sign({seller:{...seller[0],isSeller:true,isLoggedIn:true}},process.env.JWTKEY,{expiresIn:process.env.TOKEN_TIME})
                 res.status(200).json({
                     name: seller[0].fname + " " + seller[0].lname,
                     authToken
@@ -165,8 +165,17 @@ async function deleteProduct(req, res) {
     const seller = getSidFromToken(req)
     try {
         const p_id = req.query.pid
-        const r = await deactivateProduct(p_id,seller.sid)
-        console.log(r);
+        if(req.query.delete=="true"){
+            const r = await deleteProductReq(p_id)    
+            if(r.affectedRows>0){
+                res.status(200).end()
+            } else {
+                res.status(304).end()
+            }
+
+            return
+        }
+        const r = await updateProduct(null,{status:false,pid:p_id})
         if(r.affectedRows>0){
             res.status(200).end()
         } else {
@@ -208,9 +217,12 @@ async function dispatchOrder(req, res) {
     try {
         const result = await acceptOrderOrDispatch(null,{  oid:req.query.oid, center_id:req.query.center_id, dispatcherId:seller.sid })
         if(result.affectedRows>0){
-            res.status(200)
+            res.status(200).end()
+        } else {
+            res.status(304).end()
         }
     } catch (error) {
+        console.log(error);
         res.status(500).send(error)
     }
 }
